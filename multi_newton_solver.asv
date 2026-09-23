@@ -22,7 +22,7 @@
 % exit_flag: an integer indicating whether or not the solver succeeded
 function [x, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
 
-%unpack values from struct (if fields in struct have been set)
+    %unpack values from struct (if fields in struct have been set)
     dxmin = 1e-14;
     if isfield(solver_params,'dxmin')
         dxmin = solver_params.dxmin;
@@ -48,7 +48,39 @@ function [x, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
         numerical_diff = solver_params.numerical_diff;
     end
     
-    [f, dfdx] = fun(x_guess);
-    dx = -f/dfdx;
+    for i = 1:max_iter
+        [f,dfdx] = fun(x0);
+        
+        if abs(f) < ftol
+            fprintf('ftol\n');
+            x = x0;
+            flag = 1;
+            return
+        end
+
+        dx = -f/dfdx;
+        
+        if abs(dx) > dx_max
+            %dx = sign(dx)*dx_max;
+            flag = 0; 
+            x = x0;
+            return
+        end
+
+        x1=x0+dx;
+
+        if abs(dx) <= dxtol
+            fprintf('dxtol\n');
+            x = x1;
+            flag = 1;
+            return
+        end
+
+        x0 = x1;
+        hold on
+    end
+    x = x0
+    flag = 0;
+    fprintf('max_iter\n')
     
 end

@@ -23,7 +23,7 @@ function J = approximate_jacobian(fun,X)
     e_j = zeros([size(num_out), 1]);
     h = 1e-6;
     %iterate through each scalar input of fun
-    for n = 2:num_in
+    for n = 1:num_in
         %set dx vector so it has the form:
         %[0,...,0,dx_scalar,0,...,0]^T
         %where the nonzero element is at dx
@@ -35,14 +35,16 @@ function J = approximate_jacobian(fun,X)
         %the result should be a vector quantity
         
         %YOUR CODE HERE
-        e_j(n-1) = 0;
+        e_j = zeros(size(num_out), 1);
         e_j(n) = h;
         
         %Set the nth column of J to dfun/dx_n
         J(:,n) = (fun(X+e_j) - (fun(X-e_j))/(2*h));
 
         %YOUR CODE HERE
+        
+
         dX(n) = 0; %reset the dx vector to [0,...,0]^T
     end
-    %X = J\(f0)
+    X = J\(f0)
 end

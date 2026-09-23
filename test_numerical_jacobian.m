@@ -29,7 +29,7 @@ function test_numerical_jacobian(jfun)
     
         %evaluate numerical Jacobian of test_fun
         %use whatever your function name was here!
-        J_numerical = jfun(test_fun,X_guess);
+        J_numerical = approximate_jacobian(test_fun,X_guess);
 
         %compute the analytical jacobian of jacobian_test_function
         J_analytical = B;
