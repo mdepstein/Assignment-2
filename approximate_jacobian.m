@@ -20,10 +20,9 @@ function J = approximate_jacobian(fun,X)
     %initialize the Jacobian to be a matrix
     %with height num_out and width num_in
     J = zeros([num_out,num_in]);
-    e_j = zeros([size(num_out), 1]);
-    h = 1e-6;
+
     %iterate through each scalar input of fun
-    for n = 2:num_in
+    for n = 1:num_in
         %set dx vector so it has the form:
         %[0,...,0,dx_scalar,0,...,0]^T
         %where the nonzero element is at dx
@@ -33,16 +32,14 @@ function J = approximate_jacobian(fun,X)
         %partial derivative of the function 
         %w/respect to the nth element of X
         %the result should be a vector quantity
-        
-        %YOUR CODE HERE
-        e_j(n-1) = 0;
-        e_j(n) = h;
-        
-        %Set the nth column of J to dfun/dx_n
-        J(:,n) = (fun(X+e_j) - (fun(X-e_j))/(2*h));
+        f_right = fun(X+dX);
+        f_left = fun(X-dX);
+        dfun_dx_n = (f_right-f_left)/(2*dx_scalar);
 
-        %YOUR CODE HERE
+        %Set the nth column of J to dfun/dx_n
+        J(:,n) = dfun_dx_n;
+
         dX(n) = 0; %reset the dx vector to [0,...,0]^T
     end
-    %X = J\(f0)
+    
 end
