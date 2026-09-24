@@ -38,44 +38,52 @@ function [X, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
         max_iter = solver_params.max_iter;
     end
 
-    dxmax = 1e8;
+    dXmax = 1e8;
     if isfield(solver_params,'dxmax')
-        dxmax = solver_params.dxmax;
+        dXmax = solver_params.dxmax;
     end
 
     numerical_diff = 1;
     if isfield(solver_params,'numerical_diff')
         numerical_diff = solver_params.numerical_diff;
     end
+
+    X0 = x_guess;
     
     % YOUR CODE HERE
     for i = 1:max_iter
         [f, ~] = fun(X0);
-    
-
+        
+        
         if abs(f) < ftol
             fprintf('ftol\n');
             X = X0;
-            flag = 1;
+            exit_flag = 1;
             return
         end
         
-        J = approximate_jacobian(fun, X);
-        dX = -J/f;
+        J = approximate_jacobian(fun, X0);
+        dX = -J\f;
 
-        if abs(dX) > dx_max
+        if det(J) < ftol
+            fprintf('det=0\n')
+            exit_flag = 0;
+            return
+        end
+
+        if abs(dX) > dXmax
             %dx = sign(dx)*dx_max;
-            flag = 0; 
+            exit_flag = 0; 
             X = X0;
             return
         end
     
         X1=X0+dX;
     
-        if abs(dX) <= dxtol
-            fprintf('dxtol\n');
+        if abs(dX) <= dXmin
+            fprintf('dxmin\n');
             X = X1;
-            flag = 1;
+            exit_flag = 1;
             return
         end
     
@@ -83,7 +91,7 @@ function [X, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
         hold on
     end
 X = X0;
-flag = 0;
+exit_flag = 0;
 fprintf('max_iter\n')
     
 end
