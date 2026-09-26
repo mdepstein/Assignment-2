@@ -54,7 +54,7 @@ function [X, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
     for i = 1:max_iter
         [f, ~] = fun(X0);
         
-        
+        % terminate early if solution is sufficently correct
         if abs(f) < ftol
             fprintf('ftol\n');
             X = X0;
@@ -65,19 +65,23 @@ function [X, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
         J = approximate_jacobian(fun, X0);
         dX = -J\f;
 
+        % terminate if derivative is zero, exit flag = 0 solver failed
         if det(J) < ftol
             fprintf('det=0\n')
             exit_flag = 0;
             return
         end
-
+        
+        % terminate early if dX is greater than dXmax, solver fail,
+        % singular jacobean
         if abs(dX) > dXmax
             %dx = sign(dx)*dx_max;
             exit_flag = 0; 
             X = X0;
             return
         end
-    
+        
+        
         X1=X0+dX;
     
         if abs(dX) <= dXmin
