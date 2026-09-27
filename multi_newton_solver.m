@@ -19,7 +19,7 @@
 %   false->fun is assumed to only return fval
 %OUTPUTS:
 %x: the estimate of the root computed by the function
-% exit_flag: an integer indicating whether or not the solver succeeded
+% exit_flag: an integer indicating whether or not the solver succeeded (1 = succeeded)
 function [X, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
 
 %unpack values from struct (if fields in struct have been set)
@@ -50,52 +50,64 @@ function [X, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
 
     X0 = x_guess;
     
-    % YOUR CODE HERE
+    % newton iteration
     for i = 1:max_iter
-        [f, ~] = fun(X0);
+        %[f, ~] = fun(X0);
         
+        % if true, calculate and return fval, J, if false just fval
+        if numerical_diff
+            f = fun(X0);
+            J = approximate_jacobian(fun,X0);
+        else
+            [f, J] = fun(X0);
+        end
+
+
         % terminate early if solution is sufficently correct
-        if abs(f) < ftol
+        if norm(f) < ftol
             fprintf('ftol\n');
             X = X0;
             exit_flag = 1;
             return
         end
         
-        J = approximate_jacobian(fun, X0);
+       
+        %J = approximate_jacobian(fun, X0);
+        % calc step
         dX = -J\f;
 
-        % terminate if derivative is zero, exit flag = 0 solver failed
-        if det(J) < ftol
+        % terminate if derivative/singular jacobian is zero, exit flag = 0 solver failed
+        if abs(det(J*J')) < ftol
             fprintf('det=0\n')
             exit_flag = 0;
             return
         end
         
-        % terminate early if dX is greater than dXmax, solver fail,
-        % singular jacobean
-        if abs(dX) > dXmax
+        % terminate early if step dX is too large, solver fail,
+        if norm(dX) > dXmax
             %dx = sign(dx)*dx_max;
             exit_flag = 0; 
             X = X0;
             return
         end
         
-        
+        % update next step
         X1=X0+dX;
     
-        if abs(dX) <= dXmin
+        % terminate early if answer is barely changing
+        if norm(dX) <= dXmin
             fprintf('dxmin\n');
             X = X1;
             exit_flag = 1;
             return
         end
-    
+        
+        % next iteration
         X0 = X1;
         hold on
     end
-X = X0;
-exit_flag = 0;
-fprintf('max_iter\n')
+% X = X0;
+% exit_flag = 0;
+% fprintf('max_iter\n')
     
 end
