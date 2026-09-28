@@ -20,28 +20,24 @@
 %   are connected by the ith link, and d_i is the length of the ith link
 function length_errors = link_length_error_func(vertex_coords, leg_params)
     
+    % extract link lengths/num links
     link_lengths = leg_params.link_lengths;
     num_linkages = leg_params.num_linkages;
-    length_errors = zeros(size(link_lengths));
+
+    length_errors = zeros(num_linkages,1);
     vertex_coords = column_to_matrix(vertex_coords);
 
-    xa = vertex_coords(1,1);
-    ya = vertex_coords(1,2);
-    xb = vertex_coords(2,1);
-    yb = vertex_coords(2,2);
-
-    for i = 1:length(link_lengths)
-        % extract vertices
+    for i = 1:num_linkages
         vert1 = leg_params.link_to_vertex_list(i,1);
         vert2 = leg_params.link_to_vertex_list(i,2);
-        
-        xb = vertex_coords(i);
-        yb = vertex_coords(i);
-        
-        length_errors(i) = (xb-xa).^2 + (yb-ya).^2 - (link_lengths(i)).^2;
-        xa = xb;
-        ya = yb;
+       
+        xa = vertex_coords(vert1, 1);
+        ya = vertex_coords(vert1, 2);
+        xb = vertex_coords(vert2, 1);
+        yb = vertex_coords(vert2, 2);
+
+        length_errors(i) = (xb - xa).^2 + (yb - ya).^2 - link_lengths(i).^2;
 
     end 
-   %length_errors = column_to_matrix(length_errors);
+
 end
