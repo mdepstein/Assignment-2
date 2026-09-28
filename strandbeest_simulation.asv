@@ -4,8 +4,6 @@ function strandbeest_simulation()
     leg_params = define_leg_parameters();
     
     leg_drawing = initialize_leg_drawing(leg_params);
-    
-    axis equal
     %column vector of initial guesses
     %for each vertex location.
     %in form: [x1;y1;x2;y2;...;xn;yn]
@@ -18,7 +16,7 @@ function strandbeest_simulation()
     [ -50;  -50];... %vertex 6 guess
     [ -50; -100]...  %vertex 7 guess  
     ];   
-    
+
     theta_list = linspace(0, 2*pi, 25);
     %your code here
     for i =1:length(vertex_coords_guess)

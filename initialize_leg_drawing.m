@@ -24,4 +24,9 @@ function leg_drawing = initialize_leg_drawing(leg_params)
         leg_drawing.vertices{vertex_index} = line([0],[0],'marker',...
           'o','markerfacecolor','r','markeredgecolor','r','markersize',8);
     end
+
+    xlabel('x-axis (-)', 'Interpreter', 'latex', 'FontSize', 15);
+    ylabel('y-axis (-)', 'Interpreter', 'latex', 'FontSize', 15);
+    title('Strandbeest Linkages',  'Interpreter', 'latex', 'FontSize', 20)
+
 end

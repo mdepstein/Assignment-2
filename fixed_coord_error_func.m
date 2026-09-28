@@ -34,7 +34,7 @@ function coord_errors = fixed_coord_error_func(vertex_coords, leg_params, theta)
     y1_fixed = y0_vert0_fix + leg_params.crank_length * sin(theta);
     
     %
-    coord_errors = [x1_current - x1_fixed, y1_current - y1_fixed; 
-                    x2_current - x2_vert2_fixed, y2_current - y2_vert2_fixed];
+    coord_errors = [x1_current - x1_fixed; y1_current - y1_fixed; 
+                    x2_current - x2_vert2_fixed; y2_current - y2_vert2_fixed];
 
 end
