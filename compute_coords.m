@@ -10,7 +10,7 @@
 function vertex_coords_root = compute_coords(vertex_coords_guess, leg_params, theta)
     struct = 0;
     link_err_wrap = @(s) linkage_error_func(s, leg_params, theta);
-    vertex_coords_root = multi_newton_solver(link_err_wrap, vertex_coords_guess, struct);
+    vertex_coords_root = multi_newton_solver(link_err_wrap, vertex_coords_guess, struct)
     
     %you will likely need to make a wrapper function of linkage_error_func
     %so that it is only a function of vertex_coords 

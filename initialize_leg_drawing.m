@@ -18,6 +18,8 @@ function leg_drawing = initialize_leg_drawing(leg_params)
     end
     
     leg_drawing.crank = line([0,0],[0,0],'color','k','linewidth',1.5);
+
+    leg_drawing.tip = line('color','b','linewidth',1.5);
     
     leg_drawing.vertices = cell(leg_params.num_vertices,1);
     for vertex_index = 1:leg_params.num_vertices
