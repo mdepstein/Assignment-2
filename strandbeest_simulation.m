@@ -21,10 +21,17 @@ function strandbeest_simulation()
     
     theta_list = linspace(0, 2*pi, 25);
     %your code here
-    for i =1:length(vertex_coords_guess)
+    for i =1:length(theta_list)
         coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
         update_leg_drawing(coord_roots, leg_drawing, leg_params);
     %this code will likely involve a loop, where you call
     %compute_coords at each iteration
+    vertex_coords_guess = coord_roots;
+
     %you likely will also need to call update_leg_drawing each iteration
+    % drawnow updates the diagram as the loop keeps going instead of
+    % waiting on the loop to end
+    drawnow;
+    pause(0.05);
+    end
 end
