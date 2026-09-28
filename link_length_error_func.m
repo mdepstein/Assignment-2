@@ -23,18 +23,25 @@ function length_errors = link_length_error_func(vertex_coords, leg_params)
     link_lengths = leg_params.link_lengths;
     num_linkages = leg_params.num_linkages;
     length_errors = zeros(size(link_lengths));
-    
+    vertex_coords = column_to_matrix(vertex_coords);
+
+    xa = vertex_coords(1,1);
+    ya = vertex_coords(1,2);
+    xb = vertex_coords(2,1);
+    yb = vertex_coords(2,2);
+
     for i = 1:length(link_lengths)
         % extract vertices
         vert1 = leg_params.link_to_vertex_list(i,1);
         vert2 = leg_params.link_to_vertex_list(i,2);
         
-        xa = vertex_coords(1);
-        xb = vertex_coords(3);
-        ya = vertex_coords(2);
-        yb = vertex_coords(4);
+        xb = vertex_coords(i);
+        yb = vertex_coords(i);
         
         length_errors(i) = (xb-xa).^2 + (yb-ya).^2 - (link_lengths(i)).^2;
+        xa = xb;
+        ya = yb;
+
     end 
-   length_errors = column_to_matrix(length_errors);
+   %length_errors = column_to_matrix(length_errors);
 end
