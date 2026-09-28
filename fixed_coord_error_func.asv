@@ -14,7 +14,7 @@
 function coord_errors = fixed_coord_error_func(vertex_coords, leg_params, theta)
     
     leg.params = struct();
-    
+
     % current coords
     x1_current = vertex_coords(1);
     y1_current = vertex_coords(2);
@@ -35,6 +35,6 @@ function coord_errors = fixed_coord_error_func(vertex_coords, leg_params, theta)
     
     %
     coord_errors = [x1_current - x1_fixed, y1_current - y1_fixed; 
-                    x2_current - x2_vert2_fixed, y2_current - y2_vert2_fixed];
+            x2_current - x2_vert2_fixed; 
 
 end

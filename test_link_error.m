@@ -57,5 +57,7 @@ function test_link_error()
     %fixed position coords of vertex 2
     leg_params.vertex_pos2 = [-38.0;-7.8];
 
-    link_length_error_func(vertex_coords_guess, leg_params)
+   % link_length_error_func(vertex_coords_guess, leg_params)
+   % fixed_coord_error_func(vertex_coords_guess, leg_params, 25)
+   initialize_leg_drawing(leg_params)
 end
