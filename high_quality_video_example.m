@@ -82,7 +82,7 @@ function high_quality_video_example()
         pause(0.05);
         end
 
-
+    
     end
     close(writerObj);
 
