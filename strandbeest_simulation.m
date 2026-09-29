@@ -6,7 +6,7 @@ function strandbeest_simulation()
     leg_drawing = initialize_leg_drawing(leg_params);
     
     axis equal
-    axis([-150 70 -150 50])
+    axis([-150 70 -120 50])
     %column vector of initial guesses
     %for each vertex location.
     %in form: [x1;y1;x2;y2;...;xn;yn]
