@@ -27,7 +27,7 @@ function strandbeest_simulation()
     xtip = [];
     ytip = [];
 
-    for j = 1:2
+    for j = 1:5
         for i =1:length(theta_list)
             coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
             update_leg_drawing(coord_roots, leg_drawing, leg_params);
@@ -60,6 +60,7 @@ function strandbeest_simulation()
         
         ploty= linspace(0, 2*pi, length(xtip_vel));
         plot(ploty, ytip_vel);
+        axis equal
     end
     
 end
