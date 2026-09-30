@@ -58,9 +58,10 @@ function strandbeest_simulation()
             pause(0.05);
         end
         
-        ploty= linspace(0, 2*pi, length(xtip_vel));
-        plot(ploty, ytip_vel);
+        % ploty= linspace(0, 2*pi, length(xtip_vel));
+        % plot(ploty, ytip_vel);
         axis equal
+        axis([-150 70 -120 50])
     end
     
 end

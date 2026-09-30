@@ -21,7 +21,7 @@ function high_quality_video_example()
 
     %this is the critical line that forces the video to be high quality
     %adjust the numbers to adjust the position/size of the plotting window
-    set(fig1,'units','pixels','position',[0 0 1440 1440]);
+    set(fig1,'units','pixels','position',[0 0 1440 1080]);
     
     %set up the plotting axis
     leg_params = define_leg_parameters();
@@ -51,7 +51,7 @@ function high_quality_video_example()
     xtip = [];
     ytip = [];
 
-     for j = 1:5
+     for j = 1:2
         for i =1:length(theta_list)
             coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
             update_leg_drawing(coord_roots, leg_drawing, leg_params);
@@ -81,7 +81,7 @@ function high_quality_video_example()
 
         %write the frame to the video
         writeVideo(writerObj,current_frame);
-        pause(0.01);
+        pause(0.05);
         axis equal; 
         axis square
         axis([-150 70 -150 70])
