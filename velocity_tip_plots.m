@@ -75,8 +75,7 @@ function velocity_tip_plots()
         end
         
         xaxis_range= linspace(0, 2*pi, length(xtip_vel));
-        % plot(xaxis_range, xtip_vel);
-
+       
 
         % plot velocity of x component of tip for both methods
         figure(1);
