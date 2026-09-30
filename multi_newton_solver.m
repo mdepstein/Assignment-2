@@ -96,7 +96,7 @@ function [X, exit_flag] = multi_newton_solver(fun,x_guess,solver_params)
     
         % terminate early if answer is barely changing
         if norm(dX) <= dXmin
-            fprintf('dxmin\n');
+            %fprintf('dxmin\n');
             X = X1;
             exit_flag = 1;
             return
