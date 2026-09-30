@@ -20,7 +20,7 @@ function dVdtheta = compute_velocities(vertex_coords, leg_params, theta)
         B(1,:) = leg_params.crank_length * -sin(theta);
         B(2,:) = leg_params.crank_length * cos(theta);
 
-        dVdtheta = M\B
+        dVdtheta = M\B;
 
         
         
