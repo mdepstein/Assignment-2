@@ -31,31 +31,35 @@ function strandbeest_simulation()
         for i =1:length(theta_list)
             coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
             update_leg_drawing(coord_roots, leg_drawing, leg_params);
-
+    
             xtip(end+1) = coord_roots(13);
             ytip(end+1) = coord_roots(14);
 
-        %this code will likely involve a loop, where you call
-        %compute_coords at each iteration
-        vertex_coords_guess = coord_roots;
-        
-        %you likely will also need to call update_leg_drawing each iteration
-        % drawnow updates the diagram as the loop keeps going instead of
-        % waiting on the loop to end
-        % q = 50;
-        % vxtip = 1;
-        % vytip = 1;
-        % vxtip_plot_coords = [xtip(i),xtip(i)+q*vxtip];
-        % vytip_plot_coords = [ytip(i),ytip(i)+q*vytip];
-        % set(leg_drawing.tip,'xdata',vxtip_plot_coords,'ydata',vytip_plot_coords); 
-        set(leg_drawing.tip,'xdata',xtip,'ydata',ytip); 
-
-        hold on;
-        drawnow;
-        pause(0.05);
+            coord_vels = compute_velocities(vertex_coords_guess, leg_params, theta_list(i));
+            xtip_vel(i) = coord_vels(13);
+            ytip_vel(i) = coord_vels(14);
+            %this code will likely involve a loop, where you call
+            %compute_coords at each iteration
+            vertex_coords_guess = coord_roots;
+            
+            %you likely will also need to call update_leg_drawing each iteration
+            % drawnow updates the diagram as the loop keeps going instead of
+            % waiting on the loop to end
+            % q = 50;
+            % vxtip = 1;
+            % vytip = 1;
+            % vxtip_plot_coords = [xtip(i),xtip(i)+q*vxtip];
+            % vytip_plot_coords = [ytip(i),ytip(i)+q*vytip];
+            % set(leg_drawing.tip,'xdata',vxtip_plot_coords,'ydata',vytip_plot_coords); 
+            set(leg_drawing.tip,'xdata',xtip,'ydata',ytip); 
+    
+            hold on;
+            drawnow;
+            pause(0.05);
         end
         
-
+        ploty= linspace(0, 2*pi, length(xtip_vel));
+        plot(ploty, ytip_vel);
     end
     
 end

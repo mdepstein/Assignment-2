@@ -18,7 +18,8 @@ function test_link_error()
     ];
 
     theta_iter = 100;
-    % theta_list = linspace(0, 2*pi, theta_iter);
-    compute_velocities(vertex_coords, leg_params, 0)
-
+    %theta_list = linspace(0, 2*pi, theta_iter);
+    compute_velocities(vertex_coords, leg_params, 260)
+    xtip_vel = 
+    
 end

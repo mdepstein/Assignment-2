@@ -9,11 +9,19 @@
 function dVdtheta = compute_velocities(vertex_coords, leg_params, theta)
     % calc jacobian of linkage length error func
         error_vec_fun = @(x) link_length_error_func(x, leg_params);      
-        J_length_error = approximate_jacobian(error_vec_fun, vertex_coords)
+        J_length_error = approximate_jacobian(error_vec_fun, vertex_coords);
       
-        for i = 1:length(vertex_coords)
-        approximate_derivative(J_length_error(i), theta(i))
-        end
+        num_theta = length(theta);
 
+        M = [eye(4,14); J_length_error];
+     
+        B = zeros(14, 1);
+      
+        B(1,:) = leg_params.crank_length * -sin(theta);
+        B(2,:) = leg_params.crank_length * cos(theta);
+
+        dVdtheta = M\B
+
+        
         
 end
