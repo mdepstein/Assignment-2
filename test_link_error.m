@@ -19,7 +19,17 @@ function test_link_error()
 
     theta_iter = 100;
     %theta_list = linspace(0, 2*pi, theta_iter);
-    compute_velocities(vertex_coords, leg_params, 260)
-    xtip_vel = 
-    
+
+    velocities = compute_velocities(vertex_coords, leg_params, 260);
+    xtip_vel = zeros(length(velocities)/2, 1);
+    ytip_vel = zeros(length(velocities)/2, 1);
+
+
+    for vel_index = 1:length(velocities)
+        if mod(vel_index, 2) == 0
+            ytip_vel = velocities(vel_index);
+        else
+            xtip_vel = velocities(vel_index);
+        end
+    end
 end
