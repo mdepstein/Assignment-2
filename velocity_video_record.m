@@ -6,7 +6,7 @@ function velocity_video_record()
     %written a bit weird to make it fit when viewed in assignment
     %you will need to change the path and file name for your own purposes
     mypath1 = 'C:\Users\mepstein\OneDrive - Olin College of Engineering\Desktop\Applied Math\Assignment-2\.git';
-    fname='strandbeest_vid_vel_4.avi';
+    fname='strandbeest_vid_vel_3.avi';
     input_fname = [mypath1,fname];
     
     %create a videowriter, which will write frames to the animation file
@@ -30,7 +30,7 @@ function velocity_video_record()
     hold on; 
     axis equal; 
     axis square
-    axis([-150 80 -150 80])
+    axis([-120 60 -120 60])
     title('Strandbeest Linkage with Velocity Vector', 'Interpreter', 'latex', FontSize=20)
     
     % %initialize the plot of the square
@@ -52,7 +52,16 @@ function velocity_video_record()
     xtip = [];
     ytip = [];
     
-    for j = 1:5
+    coord_roots = compute_coords(vertex_coords_guess, leg_params, 0);
+    update_leg_drawing(coord_roots, leg_drawing, leg_params);
+
+    leg_path = plot([-1000],[-10000],'color','blue','LineWidth',2,'DisplayName','Leg Path');
+
+    q = quiver([0],[0],[0],[0],'off','linewidth',1.5,'Color',[0,.75,0],'DisplayName','Leg Velocity');
+
+    my_legend = legend([leg_path,q],'Interpreter','Latex', 'FontSize', 15);
+
+    for j = 1:7
             for i =1:length(theta_list)
                 coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
                 update_leg_drawing(coord_roots, leg_drawing, leg_params);
@@ -76,11 +85,12 @@ function velocity_video_record()
                 vxtip_plot_coords = [xtip(i),xtip_vel(i)+xtip_vel];
                 vytip_plot_coords = [ytip(i),ytip_vel(i)+ytip_vel];
                 norm_v = norm(vytip_plot_coords);
-                h=200;
-    
+                h=1;
                 
-                h3 = quiver(vxtip_plot_coords(1), vytip_plot_coords(1), ...
-                    h*vxtip_plot_coords(2)/norm_v, h*vytip_plot_coords(2)/norm_v, 'g');
+                set(q,'xdata',xtip(i),...
+                    'ydata',ytip(i),...
+                    'udata',h*xtip_vel(i),...
+                    'vdata',h*ytip_vel(i));
                 
                 set(leg_drawing.tip,'xdata',xtip,'ydata',ytip); 
            
@@ -92,15 +102,15 @@ function velocity_video_record()
                 current_frame = getframe(fig1);
                 writeVideo(writerObj,current_frame);
     
-                delete(h3)
-                legend('', '','','','','','','','','','', 'Leg Tip Path','','', ...
-                    '','','','','', 'Velocity Vector')
+                % delete(h3)
+                % legend('', '','','','','','','','','','', 'Leg Tip Path','','', ...
+                %     '','','','','', 'Velocity Vector')
 
     
             end
 
             axis equal
-            axis([-150 80 -150 80])
+            axis([-120 60 -120 60])
     
             
         end

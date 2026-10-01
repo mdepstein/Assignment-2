@@ -27,9 +27,9 @@ function leg_drawing = initialize_leg_drawing(leg_params)
           'o','markerfacecolor','r','markeredgecolor','r','markersize',8);
     end
 
-    xlabel('x-position (-)', 'Interpreter', 'latex', 'FontSize', 15);
-    ylabel('y-position (-)', 'Interpreter', 'latex', 'FontSize', 15);
-    title('Strandbeest Linkages',  'Interpreter', 'latex', 'FontSize', 20)
+    xlabel('$x$-position (-)', 'Interpreter', 'latex', 'FontSize', 20);
+    ylabel('$y$-position (-)', 'Interpreter', 'latex', 'FontSize', 20);
+    title('Strandbeest Linkage',  'Interpreter', 'latex', 'FontSize', 20)
     axis equal
 
 end
