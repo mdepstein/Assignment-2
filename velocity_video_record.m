@@ -6,7 +6,7 @@ function velocity_video_record()
     %written a bit weird to make it fit when viewed in assignment
     %you will need to change the path and file name for your own purposes
     mypath1 = 'C:\Users\mepstein\OneDrive - Olin College of Engineering\Desktop\Applied Math\Assignment-2\.git';
-    fname='strandbeest_vid_vel.avi';
+    fname='strandbeest_vid_vel_4.avi';
     input_fname = [mypath1,fname];
     
     %create a videowriter, which will write frames to the animation file
@@ -86,15 +86,19 @@ function velocity_video_record()
            
                 drawnow
                 hold off
-                pause(0.05);
+                pause(0.01);
+
+
+                current_frame = getframe(fig1);
+                writeVideo(writerObj,current_frame);
     
                 delete(h3)
                 legend('', '','','','','','','','','','', 'Leg Tip Path','','', ...
                     '','','','','', 'Velocity Vector')
+
     
             end
-            
-    
+
             axis equal
             axis([-150 80 -150 80])
     
