@@ -5,8 +5,9 @@ function velocity_video_record()
     %define location and filename where video will be stored
     %written a bit weird to make it fit when viewed in assignment
     %you will need to change the path and file name for your own purposes
-    mypath1 = 'C:\Users\mepstein\OneDrive - Olin College of Engineering\Desktop\Applied Math\Assignment-2\.git';
-    fname='strandbeest_vid_vel.avi';
+    mypath1 = 'C:\Users\ssperou\OneDrive - Olin College of Engineering\1. FA26\MechE Math';
+    %mypath1 = 'C:\Users\ssperou\OneDrive - Olin College of Engineering\Documents\GitHub\Assignment-2';
+    fname='vel_leg_strandbeest_video.avi';
     input_fname = [mypath1,fname];
     
     %create a videowriter, which will write frames to the animation file
@@ -52,7 +53,7 @@ function velocity_video_record()
     xtip = [];
     ytip = [];
     
-    for j = 1:5
+    for j = 1:2
             for i =1:length(theta_list)
                 coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
                 update_leg_drawing(coord_roots, leg_drawing, leg_params);
@@ -80,17 +81,19 @@ function velocity_video_record()
     
                 
                 h3 = quiver(vxtip_plot_coords(1), vytip_plot_coords(1), ...
-                    h*vxtip_plot_coords(2)/norm_v, h*vytip_plot_coords(2)/norm_v, 'g');
+                    h*vxtip_plot_coords(2)/norm_v, h*vytip_plot_coords(2)/norm_v, 'g', 'DisplayName', 'Velocity Vector');
                 
-                set(leg_drawing.tip,'xdata',xtip,'ydata',ytip); 
+                set(leg_drawing.tip,'xdata',xtip,'ydata',ytip, 'DisplayName', 'Leg Tip Path'); 
            
                 drawnow
-                hold off
+                current_frame = getframe(fig1);
+                writeVideo(writerObj, current_frame);
                 pause(0.05);
     
                 delete(h3)
+                legend()
                 legend('', '','','','','','','','','','', 'Leg Tip Path','','', ...
-                    '','','','','', 'Velocity Vector')
+                     '','','','','', 'Velocity Vector')
     
             end
             
