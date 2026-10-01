@@ -24,13 +24,12 @@ function test_link_error()
     xtip_vel = [];
     ytip_vel = [];
 
+
     for vel_index = 1:length(velocities)
         if mod(vel_index, 2) == 0
-            xtip_vel(end+1,1) = velocities(vel_index);
+            xtip_vel(end+1) = velocities(vel_index);
         else
-            ytip_vel(end+1,1) = velocities(vel_index);
+            ytip_vel = velocities(vel_index);
         end
     end
-    
-
 end

@@ -1,6 +1,6 @@
 %Short example demonstrating how to create a MATLAB animation
 %In this case, a square moving along an elliptical path
-%This version also store the animation in a vide.
+%This version also store the animation in a video.
 function high_quality_video_example()
     %define location and filename where video will be stored
     %written a bit weird to make it fit when viewed in assignment

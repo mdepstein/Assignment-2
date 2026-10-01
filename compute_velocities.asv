@@ -6,12 +6,12 @@
 %theta: the current angle of the crank
 %OUTPUTS:
 %dVdtheta: a column vector containing the theta derivates of each vertex coord
-function dVdtheta = compute_velocities(vertex_coords, leg_params, theta)
+function dVdtheta = compute_velocity(vertex_coords, leg_params, theta)
     % calc jacobian of linkage length error func
         error_vec_fun = @(x) link_length_error_func(x, leg_params);      
         J_length_error = approximate_jacobian(error_vec_fun, vertex_coords);
       
-        M = [eye(4), zeros(4, 10); J_length_error];
+        M = [eye(4); J_length_error]
      
         B = zeros(14, 1);
       
@@ -21,16 +21,16 @@ function dVdtheta = compute_velocities(vertex_coords, leg_params, theta)
         dVdtheta = M\B;
 end
 
-% vertex_coords = [...
-%     [   0;   50];... %vertex 1 guess
-%     [ -50;    0];... %vertex 2 guess
-%     [ -50;   50];... %vertex 3 guess 
-%     [-100;    0];... %vertex 4 guess
-%     [-100;  -50];... %vertex 5 guess
-%     [ -50;  -50];... %vertex 6 guess
-%     [ -50; -100]...  %vertex 7 guess  
-%     ];
-% 
-% leg_params = define_leg_parameters();
-% 
-% compute_velocity(vertex_coords, leg_params, pi)
+vertex_coords = [...
+    [   0;   50];... %vertex 1 guess
+    [ -50;    0];... %vertex 2 guess
+    [ -50;   50];... %vertex 3 guess 
+    [-100;    0];... %vertex 4 guess
+    [-100;  -50];... %vertex 5 guess
+    [ -50;  -50];... %vertex 6 guess
+    [ -50; -100]...  %vertex 7 guess  
+    ];
+
+leg_params = define_leg_parameters();
+
+compute_velocity(vertex_coords, leg_params, pi)

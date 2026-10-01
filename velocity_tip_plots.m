@@ -74,7 +74,7 @@ function velocity_tip_plots()
             % pause(0.05);
         end
         
-        xaxis_range= linspace(0, 2*pi, length(xtip_vel));
+        xaxis_range = linspace(0, 2*pi, length(xtip_vel));
        
 
         % plot velocity of x component of tip for both methods
@@ -104,6 +104,8 @@ function velocity_tip_plots()
         ylabel("Velocity, Y Component ()", 'Interpreter', 'Latex','FontSize',16)
         set(gca,'TickLabelInterpreter','latex')
         hold off;
+
+        xlim([0 6])
     end
     
 %end
