@@ -80,32 +80,32 @@ function velocity_tip_plots()
         % plot velocity of x component of tip for both methods
         figure(1);
         
-        plot(xaxis_range, xtip_vel, 'b-', 'MarkerFaceColor', 'b', 'Linewidth', 1.5,'Displayname',"Linear Algebra");
+        plot(xaxis_range, xtip_vel, 'b-', 'MarkerFaceColor', 'b', 'Linewidth', 1.5,'Displayname',"Implicit Method");
         hold on;
         plot(xaxis_range, xtip_vel_fdiff, 'r--', 'MarkerFaceColor', 'r', 'Linewidth', 1.5,'Displayname',"Finite Difference");
        
-        title('Strandbeest Leg Tip Velocity - X component', 'Interpreter', 'Latex', 'FontSize',18);
+        title('Stranbeest Leg Tip Horizontal Velocity', 'Interpreter', 'Latex', 'FontSize',18);
         legend('Location','northwest', 'Interpreter', 'Latex','FontSize',12)
         xlabel("Theta (rad)", 'Interpreter', 'Latex','FontSize',16)
-        ylabel("Velocity, X Component ()", 'Interpreter', 'Latex','FontSize',16)
+        ylabel("X Velocity (-)", 'Interpreter', 'Latex','FontSize',16)
         set(gca,'TickLabelInterpreter','latex')
         hold off;
         
 
         % plot velocity of y component of tip for both methods
         figure(2)
-        plot(xaxis_range, ytip_vel, 'b-', 'MarkerFaceColor', 'b', 'Linewidth', 1.5,'Displayname',"Linear Algebra");
+        plot(xaxis_range, ytip_vel, 'b-', 'MarkerFaceColor', 'b', 'Linewidth', 1.5,'Displayname',"Implicit Method");
         hold on;
         plot(xaxis_range, ytip_vel_fdiff, 'r--', 'MarkerFaceColor', 'r', 'Linewidth', 1.5,'Displayname',"Finite Difference");
        
-        title('Strandbeest Leg Tip Velocity - Y component', 'Interpreter', 'Latex', 'FontSize',18);
+        title('Stranbeest Leg Tip Vertical Velocity', 'Interpreter', 'Latex', 'FontSize',18);
         legend('Location','northwest', 'Interpreter', 'Latex','FontSize',12)
         xlabel("Theta (rad)", 'Interpreter', 'Latex', 'FontSize',16)
-        ylabel("Velocity, Y Component ()", 'Interpreter', 'Latex','FontSize',16)
+        ylabel("Y Velocity (-)", 'Interpreter', 'Latex','FontSize',16)
         set(gca,'TickLabelInterpreter','latex')
         hold off;
 
-        xlim([0 6])
+        xlim([0 2*pi])
     end
     
 %end
