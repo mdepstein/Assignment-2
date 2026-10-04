@@ -27,6 +27,8 @@ function strandbeest_simulation()
     xtip = [];
     ytip = [];
 
+    q = quiver([],[],[],[],'off');
+
     for j = 1:5
         for i =1:length(theta_list)
             coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
@@ -50,9 +52,15 @@ function strandbeest_simulation()
             
             vxtip_plot_coords = [xtip(i),xtip_vel(i)+xtip_vel];
             vytip_plot_coords = [ytip(i),ytip_vel(i)+ytip_vel];
-            norm_v = norm([vxtip_coords(1), vytip_plot_coords(2)]);
+            norm_v = norm([xtip_vel]);
+            h=100;
             
-            q = quiver(vxtip_plot_coords(1), vytip_plot_coords(1), 100*vxtip_plot_coords(2)/norm_v, 100*vytip_plot_coords(2)/norm_v)
+            set(q,'xdata',vxtip_plot_coords(1),...
+                  'ydata',vytip_plot_coords(1),...
+                  'udata',h*vxtip_plot_coords(2),...
+                  'vdata',h*vytip_plot_coords(2));
+
+            % q = quiver(vxtip_plot_coords(1), vytip_plot_coords(1), h*vxtip_plot_coords(2)/norm_v, h*vytip_plot_coords(2)/norm_v)
             
             % set(leg_drawing.tip,'xdata',vxtip_plot_coords,'ydata',vytip_plot_coords); 
             % set(leg_drawing.tip,'xdata',xtip,'ydata',ytip); 

@@ -1,4 +1,4 @@
-%runs strandbeest simulation
+x%runs strandbeest simulation
 function strandbeest_simulation()
 
     leg_params = define_leg_parameters();

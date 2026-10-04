@@ -20,7 +20,7 @@ function velocity_tip_plots()
     ];   
     
 
-    theta_iter = 100;
+    theta_iter = 500;
     theta_list = linspace(0, 2*pi, theta_iter);
     
     %linear alg method velocities

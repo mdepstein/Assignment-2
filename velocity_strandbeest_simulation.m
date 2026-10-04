@@ -6,7 +6,8 @@ function strandbeest_simulation()
     leg_drawing = initialize_leg_drawing(leg_params);
     
     axis equal
-    axis([-150 70 -120 50])
+    axis([-150 70 -120 50]);
+    
     %column vector of initial guesses
     %for each vertex location.
     %in form: [x1;y1;x2;y2;...;xn;yn]
@@ -27,8 +28,21 @@ function strandbeest_simulation()
     xtip = [];
     ytip = [];
 
+
+
+
+    coord_roots = compute_coords(vertex_coords_guess, leg_params, 0);
+    update_leg_drawing(coord_roots, leg_drawing, leg_params);
+
+    leg_path = plot([-1000],[-10000],'color','blue','LineWidth',2,'DisplayName','Leg Path');
+
+    q = quiver([0],[0],[0],[0],'off','linewidth',1.5,'Color',[0,.75,0],'DisplayName','Leg Velocity');
+
+    my_legend = legend([leg_path,q],'Interpreter','Latex', 'FontSize', 15);
+
     for j = 1:5
         for i =1:length(theta_list)
+            
             coord_roots = compute_coords(vertex_coords_guess, leg_params, theta_list(i));
             update_leg_drawing(coord_roots, leg_drawing, leg_params);
     
@@ -50,11 +64,17 @@ function strandbeest_simulation()
             
             vxtip_plot_coords = [xtip(i),xtip_vel(i)+xtip_vel];
             vytip_plot_coords = [ytip(i),ytip_vel(i)+ytip_vel];
-            norm_v = norm(vytip_plot_coords);
-            h=200;
+            % norm_v = norm([xtip_vel;ytip_vel]);
+            h=1;
             
-            q = quiver(vxtip_plot_coords(1), vytip_plot_coords(1), h*vxtip_plot_coords(2)/norm_v, h*vytip_plot_coords(2)/norm_v)
+            set(q,'xdata',xtip(i),...
+                  'ydata',ytip(i),...
+                  'udata',h*xtip_vel(i),...
+                  'vdata',h*ytip_vel(i));
+
+            % q = quiver(vxtip_plot_coords(1), vytip_plot_coords(1), h*vxtip_plot_coords(2)/norm_v, h*vytip_plot_coords(2)/norm_v)
             
+
             % set(leg_drawing.tip,'xdata',vxtip_plot_coords,'ydata',vytip_plot_coords); 
             % set(leg_drawing.tip,'xdata',xtip,'ydata',ytip); 
 
@@ -74,7 +94,7 @@ function strandbeest_simulation()
             hold off
             pause(0.05);
 
-            delete(q)
+            % delete(q)
 
         end
         
